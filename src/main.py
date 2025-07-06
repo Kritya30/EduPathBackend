@@ -15,8 +15,10 @@ from src.routes.mentorship import mentorship_bp
 from src.routes.community import community_bp
 
 app = Flask(__name__, static_folder=os.path.join(os.path.dirname(__file__), 'static'))
-app.config['SECRET_KEY'] = 'asdf#FGSgvasgf$5$WGT'
-
+app.config["SQLALCHEMY_DATABASE_URI"] = (
+    f"postgresql://{os.environ.get('PGUSER')}:{os.environ.get('PGPASSWORD')}@"
+    f"{os.environ.get('PGHOST')}:{os.environ.get('PGPORT')}/{os.environ.get('PGDATABASE')}"
+)
 # Enable CORS for all routes
 CORS(app, supports_credentials=True)
 
