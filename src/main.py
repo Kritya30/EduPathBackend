@@ -15,10 +15,7 @@ from src.routes.mentorship import mentorship_bp
 from src.routes.community import community_bp
 
 app = Flask(__name__, static_folder=os.path.join(os.path.dirname(__file__), 'static'))
-app.config["SQLALCHEMY_DATABASE_URI"] = (
-    f"postgresql://{os.environ.get('PGUSER')}:{os.environ.get('PGPASSWORD')}@"
-    f"{os.environ.get('PGHOST')}:{os.environ.get('PGPORT')}/{os.environ.get('PGDATABASE')}"
-)
+app.config['SECRET_KEY'] = 'asdf#FGSgvasgf$5$WGT'
 # Enable CORS for all routes
 CORS(app, supports_credentials=True)
 
@@ -32,7 +29,10 @@ app.register_blueprint(mentorship_bp, url_prefix='/api')
 app.register_blueprint(community_bp, url_prefix='/api/community')
 
 # Database configuration
-app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{os.path.join(os.path.dirname(__file__), 'database', 'app.db')}"
+app.config["SQLALCHEMY_DATABASE_URI"] = (
+    f"postgresql://{os.environ.get("PGUSER")}:{os.environ.get("PGPASSWORD")}@"
+    f"{os.environ.get("PGHOST")}:{os.environ.get("PGPORT")}/{os.environ.get("PGDATABASE")}"
+)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 
